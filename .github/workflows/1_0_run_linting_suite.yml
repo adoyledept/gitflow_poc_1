@@ -1,0 +1,15 @@
+name: Run Linting Suite
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  run_linting_suite:
+    name: Checkout, Run Linting
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Mock Linting run
+        run: echo "Linting has been executed!"

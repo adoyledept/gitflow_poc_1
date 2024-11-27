@@ -1,0 +1,27 @@
+name: Create Staging PR
+
+# Should this be instead on build success for image?
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build_base_image:
+    name: Auth, Build Latest, Tag, Push
+    runs-on: ubuntu-latest
+  
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: develop
+          base: staging
+          commit-message: |-
+            This PR was created automatically as a result of 
+            changes being merged into the `develop` branch.
+
+            Merging this PR will automatically trigger an image
+            build process and a deployment to the `staging` env.

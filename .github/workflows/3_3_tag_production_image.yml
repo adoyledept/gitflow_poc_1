@@ -1,0 +1,15 @@
+name: Tag Production Image
+
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+  build_base_image:
+    name: Auth, Build Latest, Tag, Push
+    runs-on: ubuntu-latest
+  
+    steps:
+      - name: Mock build run
+        run: echo "The base image has been tagged for staging!"

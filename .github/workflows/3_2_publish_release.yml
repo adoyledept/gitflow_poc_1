@@ -1,0 +1,23 @@
+name: Create Draft Release
+
+on:
+  push:
+    branches:
+      - production
+
+jobs:
+  create_draft_release:
+    name: Create draft release
+    runs-on: ubuntu-latest
+  
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Extract version tag from pyproject.toml
+        id: extract_pyproject_version
+        run: |-
+          echo "pyproject_version=$(grep -m 1 version pyproject.toml | grep -e '\d.\d.\d' -o)" >> $GITHUB_OUTPUT
+      
+      - name: Create draft release via CLI
+        run: |-
+          gh release edit ${{ steps.extract_pyproject_version.outputs.pyproject_version }} --draft=false
