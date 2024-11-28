@@ -18,4 +18,7 @@ jobs:
 
       - name: Create Pull Request
         run: |-
-          
+          gh pr create \
+            --base staging \
+            --head develop \
+            --title 'Auto PR'
