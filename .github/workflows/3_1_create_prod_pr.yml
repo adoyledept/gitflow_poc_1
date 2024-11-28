@@ -3,6 +3,8 @@ name: Create Staging PR
 # Should this be instead on build success for image?
 on:
   push:
+    paths-ignore:
+      - '.github/**'
     branches:
       - staging
 

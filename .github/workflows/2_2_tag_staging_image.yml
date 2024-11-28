@@ -2,6 +2,8 @@ name: Tag Staging Image
 
 on:
   push:
+    paths-ignore:
+      - '.github/**'
     branches:
       - staging
 

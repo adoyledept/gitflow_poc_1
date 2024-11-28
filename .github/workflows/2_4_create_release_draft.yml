@@ -3,6 +3,8 @@ name: Create Draft Release
 # This needs to be triggered when the draft release is created
 on:
   push:
+    paths-ignore:
+      - '.github/**'
     branches:
       - staging
 
