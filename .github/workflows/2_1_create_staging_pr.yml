@@ -24,4 +24,5 @@ jobs:
           gh pr create \
             --base staging \
             --head develop \
-            --title 'Auto PR'
+            --title 'Auto PR' \
+            --body 'Auto PR test'
