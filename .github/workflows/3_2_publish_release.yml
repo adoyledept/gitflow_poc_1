@@ -20,6 +20,10 @@ jobs:
         run: |-
           echo "pyproject_version=$(grep -m 1 version pyproject.toml | grep -e '\d.\d.\d' -o)" >> $GITHUB_OUTPUT
       
+      # https://cli.github.com/manual/gh_release
       - name: Create draft release via CLI
         run: |-
-          gh release edit ${{ steps.extract_pyproject_version.outputs.pyproject_version }} --draft=false
+          gh release edit "v${{ steps.extract_pyproject_version.outputs.pyproject_version }}-rc" \
+          --tag "v${{ steps.extract_pyproject_version.outputs.pyproject_version }}"
+          --draft=false \
+          --prerelease=false
