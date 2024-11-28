@@ -1,0 +1,17 @@
+name: Build Base Image
+
+on:
+  push:
+    paths-ignore:
+      - '.github/**'
+    branches:
+      - develop
+
+jobs:
+  build_base_image:
+    name: Auth, Build Latest, Tag, Push
+    runs-on: ubuntu-latest
+  
+    steps:
+      - name: Mock build run
+        run: echo "The image has been built!"

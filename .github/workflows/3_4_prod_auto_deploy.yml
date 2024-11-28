@@ -1,0 +1,28 @@
+name: Production Auto Deploy
+run-name: Deploying latest to production
+
+on:
+  workflow_run:
+    workflows: ["Tag Producting Image"]
+    types:
+      - completed
+
+jobs:
+  set-trigger-sha:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    outputs: 
+      short-sha: ${{ steps.get-short-sha.outputs.SHORT_SHA }}
+    steps:
+      - name: Get short sha from triggering commit
+        id: get-short-sha
+        run: |-
+          echo "SHORT_SHA=`echo ${{ github.event.workflow_run.head_commit.id }} | cut -c1-7`" >> $GITHUB_OUTPUT
+  
+  on-success:
+    needs: ["set-trigger-sha"]
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    uses: ./.github/workflows/0_gke_deploy_workflow.yml
+    with:
+      environment: production
+      image_tag: "${{ needs.set-trigger-sha.outputs.short-sha }}"

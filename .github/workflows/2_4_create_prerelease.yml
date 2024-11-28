@@ -1,0 +1,33 @@
+name: Create Draft Release
+
+# This needs to be triggered when the draft release is created
+on:
+  push:
+    paths-ignore:
+      - '.github/**'
+    branches:
+      - staging
+
+jobs:
+  create_draft_release:
+    name: Create draft release
+    runs-on: ubuntu-latest
+  
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Extract version tag from pyproject.toml
+        id: extract_pyproject_version
+        run: |-
+          echo "pyproject_version=$(grep -m 1 version pyproject.toml | grep -e '\d.\d.\d' -o)" >> $GITHUB_OUTPUT
+      
+      # https://cli.github.com/manual/gh_release
+      - name: Create draft release via CLI
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |-
+          gh release create \
+          --prerelease \
+          --target staging \
+          --tag "v${{ steps.extract_pyproject_version.outputs.pyproject_version }}-rc" \
+          --generate-notes
