@@ -20,7 +20,8 @@ jobs:
       - name: Extract version tag from pyproject.toml
         id: extract_pyproject_version
         run: |-
-          echo "pyproject_version=$(grep -m 1 version pyproject.toml | grep -e '\d.\d.\d' -o)" >> $GITHUB_OUTPUT
+          echo "pyproject_version=`grep -m 1 version pyproject.toml | grep -e '\d.\d.\d' -o`" >> $GITHUB_OUTPUT
+          echo "$GITHUB_OUTPUT"
       
       # https://cli.github.com/manual/gh_release
       - name: Create draft release via CLI
