@@ -2,6 +2,7 @@ name: Create Draft Release
 
 # This needs to be triggered when the draft release is created
 on:
+  workflow_dispatch:
   push:
     paths-ignore:
       - '.github/**'
@@ -26,8 +27,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |-
-          gh release create \
+          gh release create "v${{ steps.extract_pyproject_version.outputs.pyproject_version }}-rc" \
           --prerelease \
           --target staging \
-          --tag "v${{ steps.extract_pyproject_version.outputs.pyproject_version }}-rc" \
           --generate-notes
