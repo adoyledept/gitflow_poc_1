@@ -16,6 +16,8 @@ jobs:
   
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: staging
 
       - name: Create Pull Request
         env:
