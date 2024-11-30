@@ -1,4 +1,4 @@
-name: Create Staging PR
+name: Create Production PR
 
 # Should this be instead on build success for image?
 on:
@@ -16,13 +16,15 @@ jobs:
   
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: staging
 
       - name: Create Pull Request
         env:
           GH_TOKEN: ${{ github.token }}
         run: |-
           gh pr create \
-            --base staging \
-            --head develop \
+            --base production \
+            --head staging \
             --title 'Auto PR' \
             --body 'Auto PR test'

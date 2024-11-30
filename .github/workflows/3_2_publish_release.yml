@@ -1,4 +1,4 @@
-name: Create Draft Release
+name: Publish Release
 
 on:
   workflow_dispatch:
@@ -15,16 +15,18 @@ jobs:
   
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: production
       
       - name: Extract version tag from pyproject.toml
         id: extract_pyproject_version
         run: |-
-          echo "pyproject_version=$(grep -m 1 version pyproject.toml | grep -e '\d.\d.\d' -o)" >> $GITHUB_OUTPUT
+          echo "PYPROJECT_VERSION=$(grep -m 1 version pyproject.toml | grep -P '\d.\d.\d' -o)" >> $GITHUB_ENV
       
       # https://cli.github.com/manual/gh_release
       - name: Create draft release via CLI
         run: |-
-          gh release edit "v${{ steps.extract_pyproject_version.outputs.pyproject_version }}-rc" \
-          --tag "v${{ steps.extract_pyproject_version.outputs.pyproject_version }}"
-          --draft=false \
-          --prerelease=false
+          gh release edit "v${PYPROJECT_VERSION}-rc" \
+            --tag "v${PYPROJECT_VERSION}"
+            --draft=false \
+            --prerelease=false
