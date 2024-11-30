@@ -26,7 +26,7 @@ jobs:
           which grep
           grep --version
           grep -m 1 version pyproject.toml | grep -e '\d.\d.\d' -o
-          echo "PYPROJECT_VERSION=`grep -m 1 version pyproject.toml | grep -e '\d.\d.\d' -o`" >> $GITHUB_ENV
+          echo "PYPROJECT_VERSION=`grep -m 1 version pyproject.toml | grep -P '\d.\d.\d' -o`" >> $GITHUB_ENV
       
       # https://cli.github.com/manual/gh_release
       - name: Create draft release via CLI
