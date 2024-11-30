@@ -23,6 +23,8 @@ jobs:
         run: |-
           pwd
           ls -lah
+          which grep
+          grep --version
           grep -m 1 version pyproject.toml | grep -e '\d.\d.\d' -o
           echo "PYPROJECT_VERSION=`grep -m 1 version pyproject.toml | grep -e '\d.\d.\d' -o`" >> $GITHUB_ENV
       
