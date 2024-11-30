@@ -20,7 +20,6 @@ jobs:
       # This grep command looks for the first instance of a version tag with the assumption that the first instance
       # represents the version of the project itself rather than a dependency version.
       - name: Extract version tag from pyproject.toml
-        id: extract_pyproject_version
         run: |-
           echo "PYPROJECT_VERSION=$(grep -m 1 version pyproject.toml | grep -e '\d.\d.\d' -o)" >> $GITHUB_ENV
       
@@ -29,7 +28,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |-
-          gh release create "v$PYPROJECT_VERSION-rc" \
+          gh release create "v${PYPROJECT_VERSION}-rc" \
           --prerelease \
           --target staging \
           --generate-notes
