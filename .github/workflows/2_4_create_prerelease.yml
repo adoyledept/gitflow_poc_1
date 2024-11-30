@@ -22,6 +22,7 @@ jobs:
       - name: Extract version tag from pyproject.toml
         run: |-
           pwd
+          ls -lah
           grep -m 1 version pyproject.toml | grep -e '\d.\d.\d' -o
           echo "PYPROJECT_VERSION=`grep -m 1 version pyproject.toml | grep -e '\d.\d.\d' -o`" >> $GITHUB_ENV
       
