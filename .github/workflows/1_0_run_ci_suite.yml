@@ -1,0 +1,19 @@
+name: Run CI Suite
+
+on:
+  pull_request:
+    paths-ignore:
+      - '.github/**'
+    branches:
+      - develop
+      - staging
+      - production
+
+jobs:
+  run_ci_suite:
+    name: Checkout, Run CI
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Mock CI run
+        run: echo "CI has been executed!"

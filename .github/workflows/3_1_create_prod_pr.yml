@@ -1,0 +1,30 @@
+name: Create Production PR
+
+# Should this be instead on build success for image?
+on:
+  workflow_dispatch:
+  push:
+    paths-ignore:
+      - '.github/**'
+    branches:
+      - staging
+
+jobs:
+  build_base_image:
+    name: Auth, Build Latest, Tag, Push
+    runs-on: ubuntu-latest
+  
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: staging
+
+      - name: Create Pull Request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |-
+          gh pr create \
+            --base production \
+            --head staging \
+            --title 'Auto PR' \
+            --body 'Auto PR test'

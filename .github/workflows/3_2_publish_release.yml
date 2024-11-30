@@ -1,0 +1,32 @@
+name: Publish Release
+
+on:
+  workflow_dispatch:
+  push:
+    paths-ignore:
+      - '.github/**'
+    branches:
+      - production
+
+jobs:
+  create_draft_release:
+    name: Create draft release
+    runs-on: ubuntu-latest
+  
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: production
+      
+      - name: Extract version tag from pyproject.toml
+        id: extract_pyproject_version
+        run: |-
+          echo "PYPROJECT_VERSION=$(grep -m 1 version pyproject.toml | grep -P '\d.\d.\d' -o)" >> $GITHUB_ENV
+      
+      # https://cli.github.com/manual/gh_release
+      - name: Create draft release via CLI
+        run: |-
+          gh release edit "v${PYPROJECT_VERSION}-rc" \
+            --tag "v${PYPROJECT_VERSION}"
+            --draft=false \
+            --prerelease=false
