@@ -21,7 +21,9 @@ jobs:
       # represents the version of the project itself rather than a dependency version.
       - name: Extract version tag from pyproject.toml
         run: |-
-          echo "PYPROJECT_VERSION=$(grep -m 1 version pyproject.toml | grep -e '\d.\d.\d' -o)" >> $GITHUB_ENV
+          pwd
+          grep -m 1 version pyproject.toml | grep -e '\d.\d.\d' -o
+          echo "PYPROJECT_VERSION=`grep -m 1 version pyproject.toml | grep -e '\d.\d.\d' -o`" >> $GITHUB_ENV
       
       # https://cli.github.com/manual/gh_release
       - name: Create draft release via CLI
