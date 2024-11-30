@@ -35,4 +35,5 @@ jobs:
           gh release create "v${PYPROJECT_VERSION}-rc" \
             --prerelease \
             --target staging \
-            --generate-notes
+            --generate-notes \
+            --title v${PYPROJECT_VERSION}-rc
