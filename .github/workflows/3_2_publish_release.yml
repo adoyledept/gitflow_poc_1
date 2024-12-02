@@ -8,6 +8,10 @@ on:
     branches:
       - production
 
+# Future edit - here we want to string together several workflow jobs so that jobs appear in the same workflow run
+# publish_release -> tag_prod_image -> prod_auto_deploy 
+# the above workflows need to be altered to on:workflow_call
+
 jobs:
   create_draft_release:
     name: Create draft release
