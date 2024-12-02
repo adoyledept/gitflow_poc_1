@@ -7,6 +7,9 @@ on:
     branches:
       - staging
 
+# Future edit - here we want to string together several workflow jobs so that jobs appear in the same workflow run
+# tag_staging_image -> staging_auto_deploy -> create_prerelease -> create_prod_pr
+# the above workflows need to be altered to on:workflow_call
 jobs:
   build_base_image:
     name: Auth, Build Latest, Tag, Push
