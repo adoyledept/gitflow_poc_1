@@ -46,6 +46,7 @@ jobs:
       - name: Create Pull Request
         env:
           GH_TOKEN: ${{ github.token }}
+        shell: bash {0}
         run: |-
           output=$(gh pr create --base staging --head develop --title 'Auto PR' --body 'Auto PR test' 2>&1)
           status=$?
