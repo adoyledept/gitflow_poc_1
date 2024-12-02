@@ -10,7 +10,7 @@ on:
       - develop
 
 jobs:
-  build_base_image:
+  create_staging_pr:
     name: Auth, Build Latest, Tag, Push
     runs-on: ubuntu-latest
   
