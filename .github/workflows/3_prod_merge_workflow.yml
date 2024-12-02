@@ -1,4 +1,5 @@
 name: Production Merge Workflow
+run-name: Publish release, tag image, deploy to prod
 
 on:
   workflow_dispatch:
