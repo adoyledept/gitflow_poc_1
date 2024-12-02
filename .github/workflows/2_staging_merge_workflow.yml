@@ -1,4 +1,5 @@
 name: Staging Merge Workflow
+run-name: Create release candidate, tag image, deploy to staging, create prod PR
 
 on:
   workflow_dispatch:

@@ -1,4 +1,5 @@
 name: Develop Merge Workflow
+run-name: Build image, deploy to dev, and create staging PR
 
 on:
   workflow_dispatch:
