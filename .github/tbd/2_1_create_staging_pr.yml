@@ -10,7 +10,7 @@ on:
       - develop
 
 jobs:
-  build_base_image:
+  create_staging_pr:
     name: Auth, Build Latest, Tag, Push
     runs-on: ubuntu-latest
   
@@ -22,8 +22,17 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |-
-          gh pr create \
-            --base staging \
-            --head develop \
-            --title 'Auto PR' \
-            --body 'Auto PR test'
+          output=$(gh pr create --base staging --head develop --title 'Auto PR' --body 'Auto PR test' 2>&1)
+          status=$?
+
+          if [ $status -ne 0 ]; then
+            if echo "$output" | grep -q "https://github.com/"; then
+              echo "$output"
+              exit 0
+            else
+              echo "$output"
+              exit $status
+            fi
+          else
+            echo "$output"
+          fi

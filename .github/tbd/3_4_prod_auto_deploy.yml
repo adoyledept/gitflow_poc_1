@@ -3,7 +3,7 @@ run-name: Deploying latest to production
 
 on:
   workflow_run:
-    workflows: ["Tag Producting Image"]
+    workflows: ["Tag Production Image"]
     types:
       - completed
 
@@ -24,5 +24,5 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     uses: ./.github/workflows/0_gke_deploy_workflow.yml
     with:
-      environment: production
+      environment: prod
       image_tag: "${{ needs.set-trigger-sha.outputs.short-sha }}"
