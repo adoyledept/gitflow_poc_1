@@ -17,7 +17,7 @@ jobs:
     name: Create Draft Release
     runs-on: ubuntu-latest
     outputs: 
-      draft_release_tag: ${{ steps.get_pyproject_tag.outputs.DRAFT_RELEASE_TAG }}
+      draft_release_tag: ${{ steps.create_draft_release.outputs.DRAFT_RELEASE_TAG }}
     steps:
       - uses: actions/checkout@v4
         with:
