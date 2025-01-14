@@ -1,5 +1,7 @@
 name: Check PR Version Bump
 on:
+  repository_dispatch:
+    types: [create-pull-request]
   pull_request:
     branches:
       - production
