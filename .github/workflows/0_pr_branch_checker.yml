@@ -1,6 +1,8 @@
 name: Validate Pull Request
 
 on:
+  repository_dispatch:
+    types: [create-pull-request]
   pull_request:
     branches:
       - production
